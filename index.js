@@ -38,6 +38,7 @@ app.group("/api/v1", (router) => {
     router.post('/register', AuthController.register) //for register
     // CATEGORY ROUTER
     router.get('/categories', CategoryController.index) //get all
+	router.post('/category/post', CategoryController.addCategory) //get all
 
 
     //router FAVORITES
