@@ -7,7 +7,7 @@ require('express-group-routes')
 
 
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
 //allow this app to receive incoming json request
 app.use(bodyParser.json())
@@ -57,7 +57,11 @@ app.group("/api/v1", (router) => {
     //ROUTER USER
     router.get('/profile/:id', UserController.showById)
 
-})
 
+
+})
+app.get("/", (req, res) => {
+    res.send("Hello World");
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}!`))
