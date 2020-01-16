@@ -42,7 +42,7 @@ exports.showByToday = (req, res) => {
 }
 exports.showByCategory = (req, res) => {
 
-    categories.findOne({
+    Category.findOne({
         attributes: ['id', 'name'],
         where:
         {
@@ -50,14 +50,14 @@ exports.showByCategory = (req, res) => {
         },
         include: [
             {
-                model: events,
-                as: "events",
+                model: Event,
+                as: "categoryEvents",
                 attributes: { exclude: ['createdAt', 'updatedAt'] },
                 include: [
                     {
-                        model: users,
-                        as: "createdBy",
-                        attributes: ['id', 'email', 'fullname', 'phone', 'avatar']
+                        model: User,
+                        as: "createBy",
+                        attributes: ['id', 'name', 'email', 'phone_number']
                     }
                 ]
             },
