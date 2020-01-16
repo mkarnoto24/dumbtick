@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'event_order'
     })
 
+
   };
   return events;
 };

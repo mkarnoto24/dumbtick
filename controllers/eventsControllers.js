@@ -42,18 +42,29 @@ exports.showByToday = (req, res) => {
 }
 exports.showByCategory = (req, res) => {
 
-    Event.findAll({
+    categories.findOne({
+        attributes: ['id', 'name'],
+        where:
+        {
+            id: req.params.id,
+        },
         include: [
             {
-                model: Category, attributes: ['id', 'name'],
-                as: "categoryId"
+                model: events,
+                as: "events",
+                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                include: [
+                    {
+                        model: users,
+                        as: "createdBy",
+                        attributes: ['id', 'email', 'fullname', 'phone', 'avatar']
+                    }
+                ]
             },
-            {
-                model: User, attributes: ['id', 'name', 'phone_number', 'email', 'img'],
-                as: "createBy"
-            }
-        ], where: { category_event: req.params.id }
-    }).then(event => res.send(event)).catch(err => res.send(err))
+        ],
+    }).then(data => {
+        res.send(data)
+    }).catch(err => res.send(err))
 }
 exports.showById = (req, res) => {
     Event.findOne({
