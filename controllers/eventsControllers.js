@@ -68,7 +68,7 @@ exports.showById = (req, res) => {
         ],
         where: { id: req.params.id }
     })
-        .then(event => res.send(event))
+        .then(data => res.send(data))
         .catch(err => res.send(err))
 
 }
